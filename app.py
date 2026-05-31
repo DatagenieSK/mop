@@ -22,7 +22,6 @@ def format_td(td):
 # Custom function to create a color gradient from Green (fast) to Red (slow)
 def get_color_gradient(val, min_val, max_val):
     # Map the value to a 0.0 - 1.0 scale
-    # If all values are the same, avoid division by zero
     if max_val == min_val:
         normalized = 0.5
     else:
@@ -94,7 +93,8 @@ if uploaded_file is not None:
                 ],
                 fill_color='darkblue',
                 font=dict(color='white', size=14),
-                align='left'
+                align='left',
+                line=dict(color='black', width=1.5) # <--- ADDED BORDER TO HEADER
             ),
             # Table Body formatting
             cells=dict(
@@ -105,18 +105,17 @@ if uploaded_file is not None:
                     pivot_df['Avg_Pick_Duration'], 
                     pivot_df['Avg_Binning_Duration']
                 ],
-                # Apply the gradient colors ONLY to the Avg Pick Duration column (index 3)
-                # Keep other columns white/light gray
                 fill_color=[
                     ['white']*len(pivot_df), 
                     ['white']*len(pivot_df), 
                     ['white']*len(pivot_df), 
-                    cell_colors,  # <-- The custom gradient color list!
+                    cell_colors,  
                     ['white']*len(pivot_df)
                 ],
                 align='left',
                 font=dict(color='black', size=12),
-                height=30
+                height=30,
+                line=dict(color='black', width=1) # <--- ADDED BORDER TO ALL CELLS
             )
         )])
         
